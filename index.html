@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ottawa Weather- 6094817</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+
+    <div class="box">
+        <div class="box-header"></div>
+        <div class="box-content"></div>
+        <div class="box-image"></div>
+
+    </div>
+    <div class="box-current-temp">
+    </div>
+
+    <script>
+        var url = 'http://api.openweathermap.org/data/2.5/weather?q=ottawa&APPID=5de92283f3aa9ae6eabb363c1042c2ba';
+
+        $.getJSON(url, function(data) {
+
+            var sys = data.sys;
+            var city = data.name;
+            var weather = data.weather;
+            var main = data.main;
+
+            var cloud = weather[0].main;
+            var w_id = weather[0].id;
+            var icon = weather[0].icon;
+            var country = sys.country;
+            var temp = main.temp;
+            var temp_min = main.temp_min;
+            var temp_max = main.temp_max;
+
+
+            $('.box-header').append('<h4>' + city + " WEATHER" + '</h4>');
+
+            $('.box-current-temp').append('<p>' + parseInt(temp - 273.15) + '<sup class="big-temp-sup">' + '&#x2103;' + '</sup>' + '</h1>');
+
+            $('.box-content').append('Low' + parseInt(temp_min - 273.15) + '<sup class="small-temp-sup">' + '&#x2103;' + '</sup>' + '<br>' +
+                'High' + parseInt(temp_max - 273.15) + '<sup class="small-temp-sup">' + '&#x2103;' + '</sup>')
+
+            var weather_icon = 'http://openweathermap.org/img/w/' + icon;
+            $('.box-image').append("<img src = '" + weather_icon + ".png'>");
+            $('.box-image').append('<br>' + cloud);
+
+
+        });
+    </script>
+
+
+
+</body>
+</html>
